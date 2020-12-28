@@ -20,3 +20,4 @@ app.use(express.static('static'))
 app.listen(PORT, function () {
     console.log("start serwera na porcie " + PORT)
 })
+//komentarz
