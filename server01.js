@@ -15,7 +15,7 @@ app.get("/", function (req, res) {
 })
 
 app.use(express.static('static'))
-
+//komentartz
 //nasłuch na określonym porcie
 app.listen(PORT, function () {
     console.log("start serwera na porcie " + PORT)
