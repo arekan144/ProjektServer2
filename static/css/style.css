@@ -1,0 +1,111 @@
+
+body {
+    margin:0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow: hidden;
+    min-width: 450px;
+}
+header {
+    width: 98%;
+    min-height: 25px;
+    max-height: 3vh;
+    background-color: green;
+    padding: 1%;
+}
+header a {
+    font-size: 1.5em;
+    font-size-adjust: initial;
+    margin-left: 10px;
+    margin-top: 1vw;
+    color: white;
+}
+#left {
+    background-color: rgb(198, 243, 198);
+    display: inline;
+    float:left;
+    width:15vw;
+    min-width: 200px;
+    height:97vh;
+    text-align: center;
+}
+#left a {
+    color:red;
+}
+#right {
+    max-height: 93vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-height: 50vh;
+}
+#left #napis {
+    margin: 10px auto 30px;
+    display: block;
+    max-width: fit-content;
+    color: rgb(156, 156, 138);
+    font-size: 2em;
+    font-weight: bold;
+}
+.wiersz{
+    top:10px;
+    position: relative;
+    min-width:  fit-content;
+    min-height: 40px;
+}
+.klocek {
+    position: absolute;
+    width: 100px;
+    clear: both;
+    top: 0px;
+    height: 24px;
+    font-size: 1.3em;
+    color: darkgreen;
+}
+form {
+    position: relative;
+    top: 5px;
+    clear: both;
+    left: 15px;
+    white-space: nowrap;
+    font-size:2em;
+}
+form input[type=file]{
+    max-width: 40vw;
+    overflow: hidden;
+}
+form input[type=file]::-webkit-file-upload-button{
+    background-color: rgb(231, 252, 199);
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 2px 1px;
+}
+form input[type=file]::-webkit-file-upload-button:hover {
+    background-color: rgb(251, 255, 246);
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 2px 1px;
+}
+form input[type=file]::file-selector-button{
+    background-color: rgb(231, 252, 199);
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 2px 1px;
+}
+form input[type=file]::file-selector-button:hover {
+    background-color: rgb(251, 255, 246);
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 2px 1px;
+}
+form input[type=submit]{
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: rgb(231, 252, 199);
+    padding: 2px 1px;
+}
+form input[type=submit]:hover{
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: rgb(251, 255, 246);
+    padding: 2px 1px;
+}
