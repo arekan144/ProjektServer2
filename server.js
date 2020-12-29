@@ -7,13 +7,27 @@ var formidable = require('formidable');
 const { callbackify } = require("util");
 app.use(express.json());
 app.set('views', path.join(__dirname, 'views'));
-app.engine('hbs', hbs({ defaultLayout: 'main.hbs' }));
+app.engine('hbs', hbs({
+    defaultLayout: 'main.hbs',
+    extname: '.hbs',
+    partialsDir: "views/partials",
+    helpers: {
+        sprawdz_czy_istnieje: function (data) {
+            switch (data) {
+                case 'PNG': case 'jpg': case 'json': case 'pdf': case 'doc': case 'txt': return data;
+                default: return 'nieznany';
+            }
+        }
+    },
+}));
 app.set('view engine', 'hbs');
 app.use(express.static(__dirname));
 
 //zmienne serwera
-let context = [];
-let id = 1;
+let context = {
+    files: [],
+}
+var id = 1;
 
 app.get("/", function (req, res) {
     res.redirect("/upload")
@@ -24,23 +38,41 @@ app.get("/upload", function (req, res) {
 app.get("/filemanager", function (req, res) {
     res.render('viewfileman.hbs', context);
 })
-app.get("/info", function (req, res) {
-    res.render('viewinfo.hbs');
+app.get("/info/:id", function (req, res) {
+    let id = req.params.id;
+    let szukany = {};
+    if (context.files != []) {
+        console
+        context.files.forEach(element => {
+            if (element.id == id) {
+                szukany = element;
+                delete szukany;
+                console.log(element)
+            }
+        });
+    }
+    //console.log(szukany)
+    res.render('viewinfo.hbs', szukany);
 })
 app.get("/dall", function (req, res) {
-    // jakiś kod usuwający wszystkie dane z tablicy :);
-    res.render('viewinfo.hbs', context);
+    id = 1;
+    context = {
+        files: [],
+    }
+    res.redirect("/filemanager")
 })
 app.post('/handleUpload', function (req, res) {
     let form = new formidable.IncomingForm();
-    form.uploadDir = path.join(__dirname, '/static/upload')       // folder do zapisu zdjęcia
-    form.keepExtensions = true                           // zapis z rozszerzeniem pliku
-    form.multiples = true                                // zapis wielu plików                          
+    form.uploadDir = path.join(__dirname, '/static/upload')
+    form.keepExtensions = true
+    form.multiples = true
     form.parse(req, function (err, fields, files) {
-        //console.log(files.imagetoupload, typeof (files.imagetoupload));
         if (Array.isArray(files.imagetoupload) == true) {
             files.imagetoupload.forEach(element => {
-                context.push({
+                if (element.lastModifiedDate == null) {
+                    element.lastModifiedDate = new Date();
+                }
+                context.files.push({
                     id: id,
                     ext: element.name.split(".")[1],
                     name: element.name,
@@ -54,9 +86,12 @@ app.post('/handleUpload', function (req, res) {
             console.log("wiele elementów")
         }
         else {
-            console.log("jeden element")
-            console.log(files.imagetoupload.lastModifiedDate)
-            context.push({
+            //console.log("jeden element")
+            console.log(files.imagetoupload)
+            if (files.imagetoupload.lastModifiedDate == null) {
+                files.imagetoupload.lastModifiedDate = new Date();
+            }
+            context.files.push({
                 id: id,
                 ext: files.imagetoupload.name.split(".")[1],
                 name: files.imagetoupload.name,
@@ -68,12 +103,6 @@ app.post('/handleUpload', function (req, res) {
             id++;
         }
         console.log(context)
-        //let szukany = {};
-        /*context.forEach(element => {
-            if (element.id == 1) {
-                szukany = element;
-            }
-        })*/
         res.redirect('/filemanager');
     })
 });

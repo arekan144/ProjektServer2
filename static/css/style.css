@@ -29,8 +29,27 @@ header a {
     height:97vh;
     text-align: center;
 }
-#left a {
+a {
     color:red;
+}
+.klocek3{
+    font-size: 2rem;
+    height:50px;
+    margin-top:10px;
+    color: green;
+    overflow-y: hidden;
+    font-weight: bold;
+    white-space: nowrap;
+    margin-left: 20px;
+} 
+.klocek3 .klocek3{
+    color: black;
+    font-weight: normal;
+    font-size: 1rem;
+    max-width: 85vw;
+    height:50px;
+    overflow: auto;
+    display: inline;
 }
 #right {
     max-height: 93vh;
@@ -47,19 +66,29 @@ header a {
     font-weight: bold;
 }
 .wiersz{
-    top:10px;
+    margin-top:10px;
     position: relative;
     min-width:  fit-content;
     min-height: 40px;
 }
-.klocek {
+.klocek, .klocek2 {
     position: absolute;
-    width: 100px;
+    width: 120px;
     clear: both;
     top: 0px;
-    height: 24px;
+    height: 40px;
     font-size: 1.3em;
     color: darkgreen;
+}
+.klocek2 {
+    color: black;
+    margin-top: -10px;;
+    font-size: 1em;
+    overflow-wrap: break-word;
+    overflow-y: auto;
+}
+.klocek2 img {
+    top:-5px;
 }
 form {
     position: relative;
