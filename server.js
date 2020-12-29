@@ -14,7 +14,7 @@ app.engine('hbs', hbs({
     helpers: {
         sprawdz_czy_istnieje: function (data) {
             switch (data) {
-                case 'PNG': case 'jpg': case 'json': case 'pdf': case 'doc': case 'txt': return data;
+                case 'png': case 'jpg': case 'json': case 'pdf': case 'doc': case 'txt': return data;
                 default: return 'nieznany';
             }
         }
