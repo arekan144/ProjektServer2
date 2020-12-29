@@ -41,8 +41,11 @@ a {
     font-weight: bold;
     white-space: nowrap;
     margin-left: 20px;
+    text-decoration-line: underline;
 } 
 .klocek3 .klocek3{
+   
+    text-decoration-color: white;
     color: black;
     font-weight: normal;
     font-size: 1rem;

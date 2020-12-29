@@ -42,17 +42,38 @@ app.get("/info/:id", function (req, res) {
     let id = req.params.id;
     let szukany = {};
     if (context.files != []) {
-        console
         context.files.forEach(element => {
             if (element.id == id) {
                 szukany = element;
-                delete szukany;
-                console.log(element)
             }
         });
     }
-    //console.log(szukany)
     res.render('viewinfo.hbs', szukany);
+})
+app.get('/del/:id', function (req, res) {
+    let id = req.params.id;
+    if (context.files != []) {
+        for (var x = 0; x < context.files.length; x++) {
+            if (context.files[x].id == id) {
+                context.files.splice(x, 1);
+            }
+        }
+    }
+    res.redirect("/filemanager")
+})
+app.get('/download/:id', function (req, res) {
+    let id = req.params.id;
+    if (context.files != []) {
+        let do_pobrania = "";
+        for (var x = 0; x < context.files.length; x++) {
+            if (context.files[x].id == id) {
+                do_pobrania = context.files[x].path
+                res.download(do_pobrania, function (error) {
+                    console.log(error);
+                })
+            }
+        }
+    }
 })
 app.get("/dall", function (req, res) {
     id = 1;
@@ -83,10 +104,8 @@ app.post('/handleUpload', function (req, res) {
                 })
                 id++;
             })
-            console.log("wiele elementów")
         }
         else {
-            //console.log("jeden element")
             console.log(files.imagetoupload)
             if (files.imagetoupload.lastModifiedDate == null) {
                 files.imagetoupload.lastModifiedDate = new Date();
@@ -102,7 +121,6 @@ app.post('/handleUpload', function (req, res) {
             })
             id++;
         }
-        console.log(context)
         res.redirect('/filemanager');
     })
 });
